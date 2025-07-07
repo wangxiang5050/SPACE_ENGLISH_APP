@@ -107,6 +107,15 @@ SpaceEnglishApp/
 │   ├── useColorScheme.ts             # 颜色方案Hook (通用)
 │   └── useColorScheme.web.ts         # 颜色方案Hook (Web专用)
 │
+├── 📊 types/                         # TypeScript类型定义
+│   └── learning.ts                   # 学习相关类型：Animal, Planet, UserProgress等
+│
+├── 📊 data/                          # 数据层
+│   ├── animals.ts                    # 动物数据：5个地球动物+工具函数
+│   ├── planets.ts                    # 星球配置：3个星球+解锁逻辑
+│   ├── config.ts                     # 应用配置：语音识别、奖励、UI设置
+│   └── index.ts                      # 数据统一导出
+│
 ├── 📦 assets/                        # 静态资源
 │   ├── fonts/                        # 字体文件
 │   └── images/                       # 图片资源
@@ -123,16 +132,11 @@ SpaceEnglishApp/
 │   └── expo-env.d.ts                 # Expo类型定义
 │
 └── 🚀 待开发目录 (计划中)
-    └── src/
-        ├── components/
-        │   ├── AnimalCard.tsx        # 动物卡片组件
-        │   ├── AudioButton.tsx       # 音频播放按钮
-        │   ├── RecordButton.tsx      # 录音按钮
-        │   └── StarRating.tsx        # 星级评分组件
-        ├── data/
-        │   └── animals.ts            # 动物单词数据
-        └── screens/
-            └── LearningScreen.tsx    # 学习界面
+    └── components/
+        ├── AnimalCard.tsx            # 动物卡片组件
+        ├── AudioButton.tsx           # 音频播放按钮
+        ├── RecordButton.tsx          # 录音按钮
+        └── StarRating.tsx            # 星级评分组件
 ```
 
 ### 📋 目录说明
@@ -142,6 +146,8 @@ SpaceEnglishApp/
 - **`components/`** - 可复用的React组件，按功能分类
 - **`constants/`** - 应用常量，如颜色、尺寸等配置
 - **`hooks/`** - 自定义React Hooks，封装可复用的逻辑
+- **`types/`** - TypeScript类型定义，提供类型安全和代码提示
+- **`data/`** - 应用数据层，包含学习内容、配置和工具函数
 
 #### 🎯 **Expo Router 路由系统**
 - **`app/_layout.tsx`** - 根布局，配置全局导航和主题
@@ -214,7 +220,61 @@ const AnimalCard: React.FC<AnimalCardProps> = ({ animal, onPress }) => {
 
 #### 🔍 **当前项目中的TypeScript示例**
 
-**1. 查看 `app/(tabs)/index.tsx`**
+**1. 查看 `types/learning.ts` - 数据类型定义**
+```typescript
+// 定义动物学习项目的类型结构
+export interface Animal extends LearningItem {
+  /** 动物类型分类 */
+  category: 'mammal' | 'bird' | 'fish' | 'reptile' | 'amphibian' | 'insect';
+  
+  /** 动物栖息地 */
+  habitat: 'land' | 'water' | 'air' | 'mixed';
+  
+  /** 动物大小分类 */
+  size: 'small' | 'medium' | 'large';
+}
+
+// 星级评分类型
+export type StarRating = 1 | 2 | 3;
+
+// 星球类型枚举
+export type PlanetType = 'earth' | 'moon' | 'mars';
+```
+
+**2. 查看 `data/animals.ts` - 实际数据使用**
+```typescript
+import { Animal } from '@/types/learning';
+
+// 使用类型定义创建实际数据
+export const EARTH_ANIMALS: Animal[] = [
+  {
+    id: 'earth_cat',
+    name: 'Cat',
+    chineseName: '猫',
+    emoji: '🐱',
+    planet: 'earth',
+    difficulty: 'beginner',
+    category: 'mammal',
+    habitat: 'land',
+    size: 'small',
+    // ... 其他属性
+  },
+  // ... 更多动物
+];
+```
+
+**3. 查看 `app/(tabs)/index.tsx` - 组件中使用数据**
+```typescript
+import { EARTH_ANIMALS, ANIMAL_STATS } from '@/data';
+
+export default function HomeScreen() {
+  return (
+    <Text>📊 数据结构已完成 ({ANIMAL_STATS.total}个动物)</Text>
+  );
+}
+```
+
+**4. 查看 `app/(tabs)/index.tsx`**
 ```typescript
 // 导入React Native组件，TypeScript会自动推断类型
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
@@ -269,13 +329,16 @@ export const Colors = {
 
 #### 🚨 **常见错误和解决方案**
 
-**1. 导入路径错误**
+**1. 导入路径规范**
 ```typescript
-// ❌ 错误 - 找不到模块
+// ❌ 错误 - 使用相对路径容易出错
 import { Colors } from './Colors';
+import { Animal } from '../types/learning';
 
-// ✅ 正确 - 使用绝对路径
+// ✅ 正确 - 使用绝对路径，清晰明确
 import { Colors } from '@/constants/Colors';
+import { Animal } from '@/types/learning';
+import { EARTH_ANIMALS } from '@/data';
 ```
 
 **2. 类型不匹配**

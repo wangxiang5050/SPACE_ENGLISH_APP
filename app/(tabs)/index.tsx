@@ -8,6 +8,7 @@ import {
   Platform 
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { EARTH_ANIMALS, ANIMAL_STATS } from '@/data';
 
 export default function HomeScreen() {
   return (
@@ -44,6 +45,7 @@ export default function HomeScreen() {
             <Text style={styles.statusItem}>🎤 语音识别功能已安装</Text>
             <Text style={styles.statusItem}>🔊 音频播放功能已安装</Text>
             <Text style={styles.statusItem}>📁 项目结构已创建</Text>
+            <Text style={styles.statusItem}>📊 数据结构已完成 ({ANIMAL_STATS.total}个动物)</Text>
           </View>
 
           {/* 开始按钮 */}
@@ -55,7 +57,7 @@ export default function HomeScreen() {
         {/* 底部信息 */}
         <View style={styles.footer}>
           <Text style={styles.footerText}>MVP版本 - 地球关卡</Text>
-          <Text style={styles.footerText}>5个动物单词等你来学习</Text>
+          <Text style={styles.footerText}>{EARTH_ANIMALS.length}个动物单词等你来学习</Text>
         </View>
       </ScrollView>
     </SafeAreaView>
