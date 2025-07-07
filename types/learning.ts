@@ -262,4 +262,15 @@ export interface AppConfig {
     /** 是否启用触觉反馈 */
     hapticFeedback: boolean;
   };
+}
+
+/**
+ * 发音评分结果
+ */
+export interface PronunciationScore {
+  stars: 1 | 2 | 3;         // 星级评分
+  fuel: number;             // 获得的燃料
+  points: number;           // 获得的积分
+  confidence: number;       // 置信度 (0-1)
+  feedback: string;         // 反馈文本
 } 

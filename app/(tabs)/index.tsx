@@ -8,9 +8,15 @@ import {
   Platform 
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { router } from 'expo-router';
 import { EARTH_ANIMALS, ANIMAL_STATS } from '@/data';
 
 export default function HomeScreen() {
+  // 跳转到学习页面
+  const handleStartLearning = () => {
+    router.push('/(tabs)/learning');
+  };
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar 
@@ -46,10 +52,11 @@ export default function HomeScreen() {
             <Text style={styles.statusItem}>🔊 音频播放功能已安装</Text>
             <Text style={styles.statusItem}>📁 项目结构已创建</Text>
             <Text style={styles.statusItem}>📊 数据结构已完成 ({ANIMAL_STATS.total}个动物)</Text>
+            <Text style={styles.statusItem}>🎮 学习界面已完成</Text>
           </View>
 
           {/* 开始按钮 */}
-          <TouchableOpacity style={styles.startButton}>
+          <TouchableOpacity style={styles.startButton} onPress={handleStartLearning}>
             <Text style={styles.startButtonText}>🚀 开始太空之旅</Text>
           </TouchableOpacity>
         </View>

@@ -40,6 +40,14 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
         }}
       />
+      <Tabs.Screen
+        name="learning"
+        options={{
+          href: null, // 隐藏在标签栏中
+          title: 'Learning',
+          headerShown: false, // 隐藏自动导航栏
+        }}
+      />
     </Tabs>
   );
 }
