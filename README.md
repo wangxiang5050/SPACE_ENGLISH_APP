@@ -33,6 +33,7 @@
 - **语音识别**：@react-native-voice/voice
 - **音频播放**：expo-av
 - **动画效果**：React Native Reanimated 3
+- **安全区域**：react-native-safe-area-context
 - **状态管理**：React useState (MVP阶段)
 
 ### 跨平台支持
